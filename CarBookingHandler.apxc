@@ -1,0 +1,15 @@
+public class CarBookingHandler {
+    public static void sendEmailNotification(List<Car_Bookings__c> carList){
+		for(Car_Bookings__c car:carList){
+			Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+			email.setToAddresses( new List<String>{car.Email__c});
+			email.setSubject('Welcome to our Dealership');
+			string body = 'Dear ' +car.Name +', \n';
+			body += 'Welcome to Car Rentals! You have been seen as a valuable customer to us.\n Please continue your journey with us, while we try to provide you with good quality resources. \n Car Amount = ' + car.Amount__c + ' \n car type = '+car.Car_Type__c;
+            email.setPlainTextBody(body);
+			Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{email});
+        }
+
+    }
+
+}
